@@ -44,4 +44,18 @@ describe('Modular Inverse (modinv)', () => {
     modInverse(8, 4).should.be.NaN
     modInverse(-8, 4).should.be.NaN
   })
+
+  it('should pass this basic set', () => {
+    modInverse(1, 2).should.equal(1)
+    modInverse(3, 6).should.be.NaN
+    modInverse(7, 87).should.equal(25)
+    modInverse(25, 87).should.equal(7)
+    modInverse(-7, 87).should.equal(62)
+    modInverse(-25, 87).should.equal(80)
+    modInverse(2, 91).should.equal(46)
+    modInverse(19, 1212393831).should.be.equal(701912218)
+    modInverse(31, 73714876143).should.be.equal(45180085378)
+    modInverse(3, 73714876143).should.be.NaN
+    modInverse(45180085378, 73714876143).should.be.equal(31)
+  })
 })
