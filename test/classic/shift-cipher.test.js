@@ -133,6 +133,13 @@ describe('Shift Cipher / Caesar cipher', () => {
     }).should.be.equal('r6,oRS.:');
   });
 
+  it('can decrypt whatever it has encrypted', () => {
+    var text = ' o3, lOP জাসদ এ ০৯ 学中文 \u3583\u0298 .: ';
+    var cipher = shiftCipher(text, { shift: 10 })
+    var reverse = shiftCipher(cipher, { shift: -10 })
+    reverse.should.be.equal(text);
+  });
+
   // it('should ', () => {
   //   shiftCipher('').should.be.equal('')
   // })

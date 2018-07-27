@@ -1,5 +1,4 @@
 module.exports = {
-  classic: {
-    ShiftCipher: require('./classic/shift-cipher'),
-  },
+  // Classics
+  ShiftCipher: require('./classic/shift-cipher'),
 };

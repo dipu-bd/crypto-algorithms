@@ -1,9 +1,20 @@
 'use strict'
 
 /**
- * Apply shift cipher to the given text. Default configs:
+ * Shift cipher, also known as Caesar cipher, is one of the simplest and most
+ * widely known encryption technique. The Caesar cipher is named Julius Caesar,
+ * who used it with a shift of three to protect his military messages.
+ * 
+ * As with all single-alphabet substitution ciphers, the Caesar cipher is easily
+ * broken and in modern practice is of no use in direct communication. But it
+ * still has modern application in the ROT13 system, as well as a part of more
+ * complex schemes like- Vigenere ciphers.
+ * 
+ * This module provides a method to apply Shift cipher to a given text. The
+ * system is easily customizable through a set of configuration paramenters.
+ * The default configurations used by the method is given here:
  * <pre lang="js">{
- *   shift: 3,                  // the shift position for each letter
+ *   shift: 3,                  // the positions to shift
  *   all: false,                // shift all characters regardless their type
  *   skipDigits: false,         // do not shift the digits
  *   stripOthers: false,        // strip all letters except alphabets, numbers and whitespaces.
@@ -11,9 +22,21 @@
  *   ranges: [],                // add ranges to shift
  *   skip: [],                  // regex to exclude from output
  * }</pre>
- * @param {String} text - the plain text to use
- * @param {Object} config - customize the cipher
- * @module classic.ShiftCipher
+ * 
+ * <h4>Examples</h4>
+ * To simply get a cipher text:
+ * <pre>
+ *   var originalText = 'any text';
+ *   var cipherText = shiftCipher(, { shift: 5 });
+ * </pre>
+ * You can decipher easily by passing a negative shift value:
+ * <pre>
+ *   var decipheredText = shiftCipher(ciphrText, { shift: -5 });
+ * </pre>
+ * 
+ * @param {String} text - the plain text
+ * @param {Object} config - to customize the system
+ * @module ShiftCipher
  */
 module.exports = function shiftCipher(text, config) {
   // init default config
