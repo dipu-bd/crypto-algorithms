@@ -13,11 +13,12 @@ it('should tell mocha and chai is available', () => {
   expect('hello').not.be.equal('word')
 })
 
-describe('Classic ciphers', () => {
-  require('./classic/shift-cipher.test')
-})
-
 describe('Tools', () => {
   require('./tools/gcd.test')
   require('./tools/mod-inverse.test')
+})
+
+describe('Classic ciphers', () => {
+  require('./classic/shift-cipher.test')
+  require('./classic/affine-cipher.test')
 })

@@ -57,24 +57,25 @@ module.exports = function affineCipher(text, key, config) {
   }
 
   // validate keys
-  if (!key || !key.a || !key.b) {
-    throw new Error('Invalid key. Use {a, b} pair as a key.')
-  }
-  config.ranges = config.ranges.map(function (range) {
+  key = key || { a: 0, b: 0 }
+  key.a = Math.abs(Number(key.a)) || 1
+  key.b = Math.abs(Number(key.b)) || 0
+
+  // pre-process and validate ranges
+  let ranges = []
+  config.ranges.forEach(function (range) {
+    let {a, b} = key
     const stop = (range || '').split('-')
-    if (stop.length < 2) return {}
+    if (stop.length < 2) return // invalid format
     let left = stop[0].charCodeAt(0)
     let right = stop[1].charCodeAt(0)
     const mod = right - left + 1
-    if (Tools.gcd(mod, key.a) !== 1) {
-      throw new Error(`Invalid key.
-      'key.a = ${key.a}' must be co-prime with the range: ${mod}.
-      (Hint: choose a prime number)`)
-    }
+    if (Tools.gcd(mod, a) !== 1) return // not a valid range
     if (config.decrypt) { // in decryption mode
-      key.a = Tools.modinv(key.a, mod)
-      key.b = -key.a * key.b
+      a = Tools.modInverse(a, mod)
+      b = -(a * b) % mod
     }
+    ranges.push({left, right, mod, a, b})
   })
 
   // strip characters using config.skip
@@ -87,13 +88,13 @@ module.exports = function affineCipher(text, key, config) {
   text.split('').forEach(function (char) {
     let code = char.charCodeAt(0)
     
-    for (let i = 0; i < config.ranges.length; ++i) {
-      const { left, right, mod } = config.ranges[i]
+    for (let i = 0; i < ranges.length; ++i) {
+      const { left, right, mod, a, b } = ranges[i]
       if (!mod) continue
       if (code >= left && code <= right) {
         // apply range and break loop
         code -= left
-        code = (key.a * code + key.b) % mod
+        code = (a * code + b) % mod
         code = (code + mod) % mod
         code += left
         break
