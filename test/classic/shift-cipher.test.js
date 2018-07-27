@@ -129,13 +129,13 @@ describe('Shift Cipher / Caesar cipher', () => {
     }).should.be.equal('#r6/#oRS#টু঻঩#঒#৩৲#孩丰斊#㖆ʛ#1=#')
   })
 
-  it('should let .ranges hold all the power', () => {
+  it('should let config.ranges hold all the power', () => {
     shiftCipher(' o3, lOP জাসদ এ ০৯ 学中文 \u3583\u0298 .: ', {
       ranges: ['\u0000-\uFFFF']
     }).should.be.equal('#r6/#oRS#টু঻঩#঒#৩৲#孩丰斊#㖆ʛ#1=#')
   })
 
-  it('should let skip hold all the power', () => {
+  it('should let config.skip hold all the power', () => {
     shiftCipher(' o3, lOP জাসদ এ ০৯ 学中文 \u3583\u0298 .: ', {
       skip: [/[ \u0100-\uFFFF]/g]
     }).should.be.equal('r6,oRS.:')
