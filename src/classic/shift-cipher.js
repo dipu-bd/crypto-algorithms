@@ -26,12 +26,12 @@
  * <h4>Examples</h4>
  * To simply get a cipher text:
  * <pre>
- *   var originalText = 'any text';
- *   var cipherText = shiftCipher(, { shift: 5 });
+ *   var plainText = 'any text';
+ *   var cipherText = shiftCipher(plainText, { shift: 5 });
  * </pre>
  * You can decipher easily by passing a negative shift value:
  * <pre>
- *   var decipheredText = shiftCipher(ciphrText, { shift: -5 });
+ *   var decipheredText = shiftCipher(cipherText, { shift: -5 });
  * </pre>
  * 
  * @param {String} text - the plain text
@@ -69,11 +69,6 @@ module.exports = function shiftCipher(text, config) {
     config.skip.push(/[^\s\w\d]/g);
   }
 
-  // function that handles the code shifting
-  const shifter = function(code) {
-    return code;
-  }
-
   // strip characters using config.skip
   text = (text || '') + '';
   config.skip.forEach(function (regex) {
@@ -83,7 +78,7 @@ module.exports = function shiftCipher(text, config) {
   let cipherText = '';
   text.split('').forEach(function (char) {
     let code = char.charCodeAt(0);
-    
+
     for (let i = 0; i < config.ranges.length; ++i) {
       // get the defined range
       const range = config.ranges[i] || '';
