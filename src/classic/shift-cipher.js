@@ -1,10 +1,8 @@
 'use strict'
 
 /**
- * Apply shift cipher to the given text.
- * <pre>
- * // default configs
- * {
+ * Apply shift cipher to the given text. Default configs:
+ * <pre lang="js">{
  *   shift: 3,                  // the shift position for each letter
  *   all: false,                // shift all characters regardless their type
  *   skipDigits: false,         // do not shift the digits
@@ -12,12 +10,12 @@
  *   stripWhitespace: false,    // strip whitespaces between words
  *   ranges: [],                // add ranges to shift
  *   skip: [],                  // regex to exclude from output
- * }
- * </pre>
+ * }</pre>
  * @param {String} text - the plain text to use
  * @param {Object} config - customize the cipher
+ * @module classic.ShiftCipher
  */
-function shiftCipher(text, config) {
+module.exports = function shiftCipher(text, config) {
   // init default config
   config = config || {};
   config.skip = (config.skip || []);
@@ -84,5 +82,3 @@ function shiftCipher(text, config) {
 
   return cipherText;
 }
-
-module.exports = shiftCipher;
