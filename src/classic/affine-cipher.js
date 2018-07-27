@@ -28,7 +28,7 @@ var Tools = require('../tools');
  * @param {String} text - the plain text
  * @param {Object} key - the key pair: <code>{a, b}</code> (<code>a</code> must co-prime with all ranges)
  * @param {Object} config - to customize the system
- * @module ShiftCipher
+ * @module AffineCipher
  */
 module.exports = function affineCipher(text, key, config) {
   // init default config
