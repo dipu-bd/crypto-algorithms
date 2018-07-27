@@ -19,13 +19,19 @@ describe('Shift Cipher / Caesar cipher', () => {
     shiftCipher('dipu', {}).should.be.equal('glsx');
   });
 
-  it('should accept positive shift = 1', () => {
+  it('should accept shift = 0', () => {
     shiftCipher('abcd', {
-      shift: 1
-    }).should.be.equal('bcde');
+      shift: 0
+    }).should.be.equal('abcd');
   });
 
-  it('should accept shift config', () => {
+  it('should accept positive shift config', () => {
+    shiftCipher('abcd', {
+      shift: 345
+    }).should.be.equal('hijk');
+  });
+
+  it('should accept negative shift config', () => {
     shiftCipher('defg', {
       shift: -3
     }).should.be.equal('abcd');
