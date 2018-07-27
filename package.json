@@ -6,7 +6,7 @@
   "scripts": {
     "docs": "documentation build src/** -f html -o docs",
     "lint": "eslint src/**",
-    "lint-fix": "eslint --fix src/**",
+    "lint-fix": "eslint --fix src/** test/**",
     "test": "mocha test/index.test.js"
   },
   "repository": {
