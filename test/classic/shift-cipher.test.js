@@ -44,7 +44,7 @@ describe('Shift Cipher / Caesar cipher', () => {
   })
 
   it('should work with all character cases', () => {
-    shiftCipher('abc123').should.be.equal('def456')
+    shiftCipher('abcABC').should.be.equal('defDEF')
   })
 
   it('should work with all character case with numbers', () => {
