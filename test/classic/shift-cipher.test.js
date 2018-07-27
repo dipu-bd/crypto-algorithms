@@ -1,4 +1,3 @@
-var expect = require('chai').expect;
 var shiftCipher = require('../../src/classic/shift-cipher');
 
 describe('Shift Cipher / Caesar cipher', () => {
