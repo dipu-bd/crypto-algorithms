@@ -59,12 +59,15 @@ describe('Shift Cipher / Caesar cipher', () => {
     shiftCipher('a b', {
       stripWhitespace: true
     }).should.be.equal('de');
+
     shiftCipher('\n\r   ab\tabc ', {
       stripWhitespace: true
     }).should.be.equal('dedef');
+
     shiftCipher('   ab \n     abc', {
       stripWhitespace: true
     }).should.be.equal('dedef');
+
     shiftCipher('abc   ', {
       stripWhitespace: true
     }).should.be.equal('def');
