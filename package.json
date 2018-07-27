@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/dipu-bd/crypto-algorithms#readme",
   "devDependencies": {
+    "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
   }
 }
