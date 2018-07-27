@@ -69,26 +69,31 @@ module.exports = function shiftCipher(text, config) {
     config.skip.push(/[^\s\w\d]/g);
   }
 
+  // format ranges
+  config.ranges = config.ranges.map(function (range) {
+    const stop = (range || '').split('-');
+    if (stop.length < 2) return {};
+    const left = stop[0].charCodeAt(0);
+    const right = stop[1].charCodeAt(0);
+    const mod = right - left + 1;
+    return { left, right, mod };
+  });
+
   // strip characters using config.skip
   text = (text || '') + '';
   config.skip.forEach(function (regex) {
     text = text.replace(regex, '');
   })
+
   // build the cipher text
   let cipherText = '';
   text.split('').forEach(function (char) {
     let code = char.charCodeAt(0);
 
     for (let i = 0; i < config.ranges.length; ++i) {
-      // get the defined range
-      const range = config.ranges[i] || '';
-      const stop = range.split('-');
-      if (stop.length < 2) continue;
-      let left = stop[0].charCodeAt(0);
-      let right = stop[1].charCodeAt(0);
-      // apply range and break loop
-      if (code >= left && code <= right) {
-        const mod = right - left + 1;
+      const { left, right, mod } = config.ranges[i];
+      if (mod > 1 && code >= left && code <= right) {
+        // apply shifting and break loop
         code = (code - left + config.shift) % mod;
         code = (code + mod) % mod + left;
         break;
