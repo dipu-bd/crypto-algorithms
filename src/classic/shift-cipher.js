@@ -40,68 +40,68 @@
  */
 module.exports = function shiftCipher(text, config) {
   // init default config
-  config = config || {};
-  config.skip = (config.skip || []);
-  config.ranges = (config.ranges || []);
+  config = config || {}
+  config.skip = (config.skip || [])
+  config.ranges = (config.ranges || [])
   if (typeof config.shift === 'number') {
-    config.shift = Math.floor(config.shift);
+    config.shift = Math.floor(config.shift)
   } else {
-    config.shift = 3;
+    config.shift = 3
   }
 
   // build the config.ranges
   config.ranges.push(
     '\u0041-\u005A',  // A-Z
     '\u0061-\u007A'   // a-z
-  );
+  )
   if (!config.skipDigits) {
-    config.ranges.push('\u0030-\u0039');  // 0-9
+    config.ranges.push('\u0030-\u0039')  // 0-9
   }
   if (config.all) {
-    config.ranges = ['\u0000-\uFFFF'];
+    config.ranges = ['\u0000-\uFFFF']
   }
 
   // build the config.skip
   if (config.stripWhitespace) {
-    config.skip.push(/\s/g);
+    config.skip.push(/\s/g)
   }
   if (config.stripOthers) {
-    config.skip.push(/[^\s\w\d]/g);
+    config.skip.push(/[^\s\w\d]/g)
   }
 
   // format ranges
   config.ranges = config.ranges.map(function (range) {
-    const stop = (range || '').split('-');
-    if (stop.length < 2) return {};
-    const left = stop[0].charCodeAt(0);
-    const right = stop[1].charCodeAt(0);
-    const mod = right - left + 1;
-    return { left, right, mod };
-  });
+    const stop = (range || '').split('-')
+    if (stop.length < 2) return {}
+    const left = stop[0].charCodeAt(0)
+    const right = stop[1].charCodeAt(0)
+    const mod = right - left + 1
+    return { left, right, mod }
+  })
 
   // strip characters using config.skip
-  text = (text || '') + '';
+  text = (text || '') + ''
   config.skip.forEach(function (regex) {
-    text = text.replace(regex, '');
+    text = text.replace(regex, '')
   })
 
   // build the cipher text
-  let cipherText = '';
+  let cipherText = ''
   text.split('').forEach(function (char) {
-    let code = char.charCodeAt(0);
+    let code = char.charCodeAt(0)
 
     for (let i = 0; i < config.ranges.length; ++i) {
-      const { left, right, mod } = config.ranges[i];
+      const { left, right, mod } = config.ranges[i]
       if (mod > 1 && code >= left && code <= right) {
         // apply shifting and break loop
-        code = (code - left + config.shift) % mod;
-        code = (code + mod) % mod + left;
-        break;
+        code = (code - left + config.shift) % mod
+        code = (code + mod) % mod + left
+        break
       }
     }
 
-    cipherText += String.fromCodePoint(code);
+    cipherText += String.fromCodePoint(code)
   })
 
-  return cipherText;
+  return cipherText
 }

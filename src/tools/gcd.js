@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Finds the Greatest Common Divisors (GCD) of two values.
@@ -10,19 +10,19 @@
  */
 module.exports = function gcd(a, b) {
   // validate inputs
-  [a, b] = [Math.abs(Number(a)), Math.abs(Number(b))];
-  if (a === NaN || b === NaN || !(a && b)) {
-    return NaN; // invalid inputs
+  [a, b] = [Math.abs(Number(a)), Math.abs(Number(b))]
+  if (Number.isNaN(a) || Number.isNaN(b) || !(a && b)) {
+    return NaN // invalid inputs
   }
   // pre-process
   if (a == b) {
-    return a;
+    return a
   } else if (a < b) {
-    [a, b] = [b, a];
+    [a, b] = [b, a]
   }
   // find the gcd
   while(b) {
-    [a, b] = [b, a % b];
+    [a, b] = [b, a % b]
   }
-  return a;
+  return a
 }

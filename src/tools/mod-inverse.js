@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Finds the modular multiplicative inverse of a number.
@@ -11,29 +11,29 @@
  */
 module.exports = function modInverse(a, m) {
   // validate inputs
-  [a, m] = [Number(a), Number(m)];
-  if (m === NaN || m === NaN) {
-    return NaN; // invalid inputs
+  [a, m] = [Number(a), Number(m)]
+  if (Number.isNaN(a) || Number.isNaN(m)) {
+    return NaN // invalid inputs
   }
-  a = (a % m + m) % m;
+  a = (a % m + m) % m
   if (!a || m < 2) {
-    return NaN; // inverse does not exists
+    return NaN // inverse does not exists
   }
   // find the gcd
-  const s = [];
-  let b = m;
+  const s = []
+  let b = m
   while(b) {
-    [a, b] = [b, a % b];
-    s.push({a, b});
+    [a, b] = [b, a % b]
+    s.push({a, b})
   }
   if (a !== 1) {
-    return NaN;
+    return NaN
   }
   // find the inverse
-  let x = 1;
-  let y = 0;
+  let x = 1
+  let y = 0
   for(let i = s.length - 2; i >= 0; --i) {
-    [x, y] = [y,  x - y * Math.floor(s[i].a / s[i].b)];
+    [x, y] = [y,  x - y * Math.floor(s[i].a / s[i].b)]
   }
-  return (y % m + m) % m;
+  return (y % m + m) % m
 }

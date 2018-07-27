@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
 // Classic cryptography
-exports.ShiftCipher = require('./classic/shift-cipher');
-exports.CaesarCipher = exports.ShiftCipher;
+exports.ShiftCipher = require('./classic/shift-cipher')
+exports.CaesarCipher = exports.ShiftCipher
 
-exports.AffineCipher = require('./classic/affine-cipher');
+exports.AffineCipher = require('./classic/affine-cipher')
 
 // Others
-exports.Tools = require('./tools');
+exports.Tools = require('./tools')
