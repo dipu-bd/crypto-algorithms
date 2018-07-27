@@ -104,18 +104,30 @@ describe('Shift Cipher / Caesar cipher', () => {
     }).should.be.equal('dvn nmkg /d');
   });
 
-  it('can shift characters of entire unicode range', () => {
-    shiftCipher(' o3, lOP জাসদ এ ০৯ 学中文 \u3583\u0298 .: ', {
-      all: true
-    }).should.be.equal('#r6/#oRS#টু঻঩#঒#৩৲#孩丰斊#㖆ʛ#1=#');
-  });
-
   it('can strip other characters with whitespaces skipping digits', () => {
     shiftCipher('a b3.3*  *bc~!@#e$%^&d', {
       stripOthers: true,
       stripWhitespace: true,
       skip: [/[0-9]/g]
     }).should.be.equal('deefhg');
+  });
+
+  it('can shift characters of entire unicode range', () => {
+    shiftCipher(' o3, lOP জাসদ এ ০৯ 学中文 \u3583\u0298 .: ', {
+      all: true
+    }).should.be.equal('#r6/#oRS#টু঻঩#঒#৩৲#孩丰斊#㖆ʛ#1=#');
+  });
+
+  it('should let .ranges hold all the power', () => {
+    shiftCipher(' o3, lOP জাসদ এ ০৯ 学中文 \u3583\u0298 .: ', {
+      ranges: ['\u0000-\uFFFF']
+    }).should.be.equal('#r6/#oRS#টু঻঩#঒#৩৲#孩丰斊#㖆ʛ#1=#');
+  });
+
+  it('should let skip hold all the power', () => {
+    shiftCipher(' o3, lOP জাসদ এ ০৯ 学中文 \u3583\u0298 .: ', {
+      skip: [/[ \u0100-\uFFFF]/g]
+    }).should.be.equal('r6,oRS.:');
   });
 
   // it('should ', () => {
