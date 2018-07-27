@@ -6,9 +6,9 @@
  * @param {Number} a - the first value
  * @param {Number} b - the second value
  * @return {Number} - the gcd of a and b, or NaN if numbers are invalid.
- * @module Tools.gcd
+ * @module Tools.gcdOfPair
  */
-module.exports = function gcd(a, b) {
+exports.gcdOfPair = function (a, b) {
   // validate inputs
   [a, b] = [Math.abs(Number(a)), Math.abs(Number(b))]
   if (Number.isNaN(a) || Number.isNaN(b) || !(a && b)) {
@@ -26,3 +26,21 @@ module.exports = function gcd(a, b) {
   }
   return a
 }
+
+/**
+ * Finds the Greatest Common Divisors (GCD) of multiple numbers.
+ * 
+ * @param {Number} nums - number to find gcd
+ * @module Tools.gcd
+ */
+module.exports = function gcd(...nums) {
+  if (!nums || nums.length < 2) {
+    return NaN
+  }
+  let g = nums[0]
+  for (let i = 1; i < nums.length; ++i) {
+    g = exports.gcdOfPair(g, nums[i])
+  }
+  return g
+}
+

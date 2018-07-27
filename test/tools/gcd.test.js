@@ -47,4 +47,12 @@ describe('Greatest Common Divisors (gcd)', () => {
     gcd(-6, 4).should.equal(2)
     gcd(-886, 886).should.equal(886)
   })
+
+  it('should find gcd of multiple numbers', () => {
+    gcd(4, 68, 6, 8, 122, 24, 32).should.be.equal(2)
+    gcd(21, 9, -12, 24, 33).should.be.equal(3)
+    gcd().should.be.NaN
+    gcd(10).should.be.NaN
+    gcd(10, -10, 200, -200).should.be.equal(10)
+  })
 })
