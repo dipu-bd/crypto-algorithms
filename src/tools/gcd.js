@@ -10,18 +10,17 @@
  */
 exports.gcdOfPair = function (a, b) {
   // validate inputs
-  [a, b] = [Math.abs(Number(a)), Math.abs(Number(b))]
+  [a, b] = [Number(a), Number(b)]
   if (Number.isNaN(a) || Number.isNaN(b) || !(a && b)) {
     return NaN // invalid inputs
   }
   // pre-process
+  [a, b] = [Math.abs(a), Math.abs(b)]
   if (a === b) {
     return a
-  } else if (a < b) {
-    [a, b] = [b, a]
   }
   // find the gcd
-  while(b) {
+  while(b !== 0) {
     [a, b] = [b, a % b]
   }
   return a
