@@ -16,7 +16,7 @@ module.exports = function modInverse(a, m) {
     return NaN // invalid inputs
   }
   a = (a % m + m) % m
-  if (!a || m < 2) {
+  if (!a || !m) {
     return NaN // inverse does not exists
   }
   // find the gcd
