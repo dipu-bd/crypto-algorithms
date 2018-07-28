@@ -18,6 +18,7 @@ describe('General', () => {
 describe('Tools', () => {
   require('./tools/gcd.test')
   require('./tools/mod-inverse.test')
+  require('./tools/power-mod.test')
 })
 
 describe('Classic ciphers', () => {

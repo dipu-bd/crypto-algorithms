@@ -11,22 +11,32 @@ var modInverse = require('./mod-inverse')
  * @module Tools.powerMod
  */
 module.exports = function powerMod(n, p, m) {
+  // validate
   [n, p, m] = [Number(n), Number(p), Number(m)]
-  if (Number.isNaN(n) || Number.isNaN(p) || !m) {
+  if (Number.isNaN(n) || Number.isNaN(p) || Number.isNaN(m) || m < 1) {
     return NaN
   }
-  if (!n) {
+  // corner cases
+  if (n === 0) {
     return 0
   }
-  if (!p || !(m - 1)) {
+  if (p === 0 || m === 1) {
     return 1
   }
   if (p < 0) {
-    let r = powerMod(n, -p, m)
-    return modInverse(r, m)
+    p = -p
+    n = modInverse(n, m)
   }
-  let r = powerMod(n, p >> 1, m)
-  r = (r * r) % m
-  if (p & 1) r = (r * n) % m
-  return r
+  // calculate bigmod
+  let res = 1
+  let x = n % m
+  while (p)
+  {
+    if (p % 2 === 1) {
+      res = (res * x) % m
+    }
+    x = (x * x) % m
+    p = Math.floor(p / 2)
+  }
+  return res
 }

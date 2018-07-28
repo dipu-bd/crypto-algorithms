@@ -12,12 +12,12 @@
 module.exports = function modInverse(a, m) {
   // validate inputs
   [a, m] = [Number(a), Number(m)]
-  if (Number.isNaN(a) || Number.isNaN(m)) {
+  if (Number.isNaN(a) || Number.isNaN(m) || m < 1) {
     return NaN // invalid inputs
   }
   a = (a % m + m) % m
-  if (!a || !m) {
-    return NaN // inverse does not exists
+  if (!a || m === 1) {
+    return 0 // inverse is zero
   }
   // find the gcd
   const s = []
