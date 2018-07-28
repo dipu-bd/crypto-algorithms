@@ -15,7 +15,7 @@ exports.gcdOfPair = function (a, b) {
     return NaN // invalid inputs
   }
   // pre-process
-  if (a == b) {
+  if (a === b) {
     return a
   } else if (a < b) {
     [a, b] = [b, a]
