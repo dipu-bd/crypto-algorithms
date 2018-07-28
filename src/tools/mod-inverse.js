@@ -3,25 +3,26 @@
 /**
  * Finds the modular multiplicative inverse of a number.
  * 
- * @param {Number} a - the number
+ * @param {Number} n - the number
  * @param {Number} m - the modulus
  * @return {Number} - the modular inverse of <code>a</code>, with respect to modulus
  * <code>m</code>, or <code>NaN</code> if inputs are invalid.
  * @module Tools.modInverse
  */
-module.exports = function modInverse(a, m) {
+module.exports = function modInverse(n, m) {
   // validate inputs
-  [a, m] = [Number(a), Number(m)]
-  if (Number.isNaN(a) || Number.isNaN(m) || m < 1) {
+  [n, m] = [Number(n), Number(m)]
+  if (Number.isNaN(n) || Number.isNaN(m)) {
     return NaN // invalid inputs
   }
-  a = (a % m + m) % m
-  if (!a || m === 1) {
-    return 0 // inverse is zero
+  n = n % m
+  if (!n || m < 2) {
+    return NaN // inverse does not exists
   }
   // find the gcd
-  const s = []
+  let a = Math.abs(n)
   let b = m
+  const s = []
   while(b) {
     [a, b] = [b, a % b]
     s.push({a, b})
@@ -35,5 +36,6 @@ module.exports = function modInverse(a, m) {
   for(let i = s.length - 2; i >= 0; --i) {
     [x, y] = [y,  x - y * Math.floor(s[i].a / s[i].b)]
   }
-  return (y % m + m) % m
+  y = (y % m + m) % m
+  return n < 1 ? -y : y
 }
