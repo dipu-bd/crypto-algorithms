@@ -132,4 +132,12 @@ describe('Shift Cipher / Caesar cipher', () => {
     var reverse = affineCipher(cipher, { a: 431, b: 2393 }, { ranges: ['\u0000-\uFFFF'], decrypt: true })
     reverse.should.be.equal(text)
   })
+
+  it('should decrypt long texts', () => {
+    var cipher = 'falszztysyjzyjkywjrztyjztyynaryjkyswarztyegyyj'
+    var key = { a: 7, b: 22 }
+    var text = affineCipher(cipher, key, { decrypt: true })
+    var original = 'firstthesentenceandthentheevidencesaidthequeen'
+    original.should.be.equal(text)
+  })
 })
